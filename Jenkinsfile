@@ -116,7 +116,7 @@ pipeline {
     }
 
     parameters {
-        string (name: 'GIT_BRANCH',           defaultValue: 'master',  description: 'Git branch to build')
+        string (name: 'GIT_BRANCH',           defaultValue: 'main',  description: 'Git branch to build')
         booleanParam (name: 'DEPLOY_TO_PROD', defaultValue: false,     description: 'If build and tests are good, proceed and deploy to production without manual approval')
 
 
@@ -135,8 +135,8 @@ pipeline {
 */
     }
 
-    // In this example, all is built and run from the master
-    agent { node { label 'master' } }
+    // In this example, all is built and run from the main
+    agent { node { label 'main' } }
 
     // Pipeline stages
     stages {
@@ -145,7 +145,7 @@ pipeline {
         stage('Git clone and setup') {
             steps {
                 echo "Check out acme code"
-                git branch: "master",
+                git branch: "main",
                         credentialsId: 'eldada-bb',
                         url: 'https://github.com/eldada/jenkins-pipeline-kubernetes.git'
 
@@ -336,7 +336,7 @@ pipeline {
         stage('Go for Production?') {
             when {
                 allOf {
-                    environment name: 'GIT_BRANCH', value: 'master'
+                    environment name: 'GIT_BRANCH', value: 'main'
                     environment name: 'DEPLOY_TO_PROD', value: 'false'
                 }
             }
