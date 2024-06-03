@@ -3,7 +3,6 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/SATRIAGED/hello-world.git']]])
                 sh 'mvn clean install'
             }
         }
