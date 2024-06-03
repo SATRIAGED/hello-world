@@ -3,7 +3,10 @@ pipeline {
     stages{
         stage('Build Maven'){
             steps{
-                sh 'mvn clean install'
+                git url: 'https://github.com/SATRIAGED/hello-world.git'
+                withMaven {
+                    sh 'mvn clean verify'
+                }
             }
         }
         stage('Build docker image'){
